@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+  <display-name>Archetype Created Web Application</display-name>
+  
+  <!-- 加载Spring-MyBatis 上下文 -->
+  <context-param>
+  	<description>包含Spring 集成 MyBatis 的配置</description>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:Spring-mybatis.xml</param-value>
+  </context-param>
+  
+  <!-- 编码过滤器 -->  
+    <filter>  
+        <filter-name>encodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+        <async-supported>true</async-supported>  
+        <init-param>  
+            <param-name>encoding</param-name>  
+            <param-value>UTF-8</param-value>  
+        </init-param>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>encodingFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
+    
+    
+    <!-- Spring监听器 -->  
+    <!-- 作用：读取Spring上下文配置文件 -->
+    <!-- 备注：如果在web.xml 中录入了 ContextParam>>ContextConfigLocation，
+              则下面的监听类加加载指定路径的 xml 文件作为Spring 上下文的配置文件。
+              否则，读取默认的配置文件（Spring jar包提供） -->
+    <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>  
+    <!-- 防止Spring内存溢出监听器 -->  
+    <listener>  
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>  
+    </listener>  
+    
+  
+  <!-- springMVC 配置开始 -->
+  <servlet>
+  	<servlet-name>SpringMVC</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<description>SpringMVC配置文件</description>
+  		<param-name>ContextConfigLocation</param-name>
+  		<param-value>classpath:Spring-mvc.xml</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SpringMVC</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!-- SpringMVC 配置结束 -->
+  
+  
+  
+  
+  <welcome-file-list>
+  	<welcome-file>index</welcome-file>
+  </welcome-file-list>
+  
+</web-app>

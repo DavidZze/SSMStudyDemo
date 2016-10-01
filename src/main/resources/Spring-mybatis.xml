@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/aop 
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+                        
+    <!-- 需要Spring DI管理的包 -->  
+    <context:component-scan base-package="com.excelib" >
+    	 <context:exclude-filter  type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>  
+    
+    <!-- 加载 jdbc 配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+        
+    <!-- 数据库连接池的配置：使用 阿里的数据库连接池 druidDataSource -->    
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+	</bean>
+	 
+    <!-- Mybatis-Spring集成 -->
+
+    <!-- spring与mybatis整合配置：扫描mapper文件 -->
+    <!-- 作用：创建SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <property name="mapperLocations" value="classpath:com/excelib/infrastructure/mapping/*Mapper.xml"></property>  
+    </bean>  
+    
+    <!-- spring与mybatis整合配置：扫描所有dao -->
+    <!-- 备注：在单数据源的情况下可以不写sqlSessionFactoryBeanName -->
+    <!-- 作用：将Dao.class 注册到 MapperFactoryBean （管理SqlSession的开启与关闭）中-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="basePackage" value="com.excelib.infrastructure.dao" />  
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
+    </bean>  
+    
+    
+    
+    <!-- Spring事务管理 -->
+    <!-- 采用声明式的事务管理 -->
+    
+    <!-- 定义事务管理器 -->  
+    <!-- 事务管理器/transaction manager, use JtaTransactionManager for global tx -->  
+    <bean id="transactionManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>  
+    
+    <!-- 启用对事务注解的支持 -->  
+    <tx:annotation-driven transaction-manager="transactionManager" />
+    
+    <!-- 定义aop:advices 切入点方法执行前后的动作（切入点中方法的过滤） -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+    
+    <!-- 定义 aop:pointcut（切人点） 对Service 组件切入事务管理 -->
+    <!-- 定义 aop:advisor(组合 pointcut 与 advices) -->
+    <aop:config>
+		<aop:pointcut id="serviceMethods"
+					  expression="execution(* com.excelib.domain.services.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+        
+                        
+</beans>                        

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?> <!-- WEB-INF/let'sGo-servlet.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!--SpringMVC 一键式配置方法， SPringMVC自动注册组件-->
+	<mvc:annotation-driven >
+	<!-- <mvc:message-converters>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+    </mvc:message-converters> -->
+	    <mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+				<list>
+				<value>text/plain;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+				</list>
+				</property>
+			</bean>
+			<bean  id="jsonConverter" 
+				   class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			<property name="supportedMediaTypes">
+				<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+				</list>
+			</property>
+			</bean>
+			
+			</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	
+	<!--扫描指定的目录下使用注解进行配置的类-->
+	<!-- 处理器适配器 -->
+	<!-- DispatcherServlet上下文， 只管理@Controller类型的bean， 其他型的bean, 如@Service 交由Spring框架管理 -->
+	<context:component-scan base-package="com.excelib.controller">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	
+	
+	<!-- 静态资源处理， css， js， imgs -->
+	<!-- <mvc:default-servlet-handler/> -->
+	<mvc:resources mapping="/html/**" location="/html/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+	
+	
+	
+	
+	<!-- 配置国际化资源文件路径 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<!-- 定义消息资源文件的相对路径 -->
+			<value>messages/testAppMessage</value>
+		</property>
+	</bean>
+	
+	<!-- 文件上传 -->
+	<!--200*1024*1024即200M resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="209715200" />
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="resolveLazily" value="true" />
+	</bean>
+	
+	
+	
+	
+	
+</beans>	
