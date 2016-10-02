@@ -3,7 +3,7 @@ import javax.annotation.Resource;
   
 
 
-import com.excelib.domain.model.EmployeesPOJO;
+import com.excelib.domain.model.Employees;
 import com.excelib.domain.services.intf.EmployeesServices;
 
 import org.apache.log4j.Logger;  
@@ -36,7 +36,7 @@ public class TestMyBatis {
   
     @Test  
     public void test1() {  
-        EmployeesPOJO user = userService.selectByEmpId(1);  
+        Employees user = userService.selectByEmpId(1);  
         // System.out.println(user.getUserName());  
         // logger.info("值："+user.getUserName());  
         logger.info("----------test:::: " + JSON.toJSONString(user));  

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.excelib.infrastructure.dao.DepartmentsMapper">
+  <resultMap id="BaseResultMap" type="com.excelib.domain.model.Departments">
+    <id column="DEPARTMENT_ID" jdbcType="DECIMAL" property="departmentId" />
+    <result column="DEPARTMENT_NAME" jdbcType="VARCHAR" property="departmentName" />
+    <result column="MANAGER_ID" jdbcType="DECIMAL" property="managerId" />
+    <result column="LOCATION_ID" jdbcType="DECIMAL" property="locationId" />
+    <result column="FAUX_COLUMN" jdbcType="DECIMAL" property="fauxColumn" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID, FAUX_COLUMN
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from DEPARTMENTS
+    where DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from DEPARTMENTS
+    where DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.excelib.domain.model.Departments">
+    insert into DEPARTMENTS (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, 
+      LOCATION_ID, FAUX_COLUMN)
+    values (#{departmentId,jdbcType=DECIMAL}, #{departmentName,jdbcType=VARCHAR}, #{managerId,jdbcType=DECIMAL}, 
+      #{locationId,jdbcType=DECIMAL}, #{fauxColumn,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.excelib.domain.model.Departments">
+    insert into DEPARTMENTS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        DEPARTMENT_ID,
+      </if>
+      <if test="departmentName != null">
+        DEPARTMENT_NAME,
+      </if>
+      <if test="managerId != null">
+        MANAGER_ID,
+      </if>
+      <if test="locationId != null">
+        LOCATION_ID,
+      </if>
+      <if test="fauxColumn != null">
+        FAUX_COLUMN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=DECIMAL},
+      </if>
+      <if test="locationId != null">
+        #{locationId,jdbcType=DECIMAL},
+      </if>
+      <if test="fauxColumn != null">
+        #{fauxColumn,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.excelib.domain.model.Departments">
+    update DEPARTMENTS
+    <set>
+      <if test="departmentName != null">
+        DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        MANAGER_ID = #{managerId,jdbcType=DECIMAL},
+      </if>
+      <if test="locationId != null">
+        LOCATION_ID = #{locationId,jdbcType=DECIMAL},
+      </if>
+      <if test="fauxColumn != null">
+        FAUX_COLUMN = #{fauxColumn,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.excelib.domain.model.Departments">
+    update DEPARTMENTS
+    set DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      MANAGER_ID = #{managerId,jdbcType=DECIMAL},
+      LOCATION_ID = #{locationId,jdbcType=DECIMAL},
+      FAUX_COLUMN = #{fauxColumn,jdbcType=DECIMAL}
+    where DEPARTMENT_ID = #{departmentId,jdbcType=DECIMAL}
+  </update>
+</mapper>

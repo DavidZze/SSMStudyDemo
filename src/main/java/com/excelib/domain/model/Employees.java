@@ -3,7 +3,7 @@ package com.excelib.domain.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class EmployeesPOJO {
+public class Employees {
     private Integer employeeId;
 
     private String firstName;

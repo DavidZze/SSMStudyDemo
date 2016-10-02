@@ -3,10 +3,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.excelib.infrastructure.dao.EmployeesDao">
+<mapper namespace="com.excelib.infrastructure.dao.EmployeesMapper">
 
 
-  <resultMap id="BaseResultMap" type="com.excelib.domain.model.EmployeesPOJO">
+  <resultMap id="BaseResultMap" type="com.excelib.domain.model.Employees">
     <id column="EMPLOYEE_ID" jdbcType="DECIMAL" property="employeeId" />
     <result column="FIRST_NAME" jdbcType="VARCHAR" property="firstName" />
     <result column="LAST_NAME" jdbcType="VARCHAR" property="lastName" />
@@ -66,7 +66,7 @@
   </delete>
   
   
-  <insert id="insert" parameterType="com.excelib.domain.model.EmployeesPOJO">
+  <insert id="insert" parameterType="com.excelib.domain.model.Employees">
     insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, 
       EMAIL, PHONE_NUMBER, HIRE_DATE, 
       JOB_ID, SALARY, COMMISSION_PCT, 
@@ -84,7 +84,7 @@
   </insert>
   
   
-  <insert id="insertSelective" parameterType="com.excelib.domain.model.EmployeesPOJO">
+  <insert id="insertSelective" parameterType="com.excelib.domain.model.Employees">
     insert into EMPLOYEES
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="employeeId != null">
@@ -203,7 +203,7 @@
   
   
   
-  <update id="updateByPrimaryKeySelective" parameterType="com.excelib.domain.model.EmployeesPOJO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.excelib.domain.model.Employees">
     update EMPLOYEES
     <set>
       <if test="firstName != null">
@@ -263,7 +263,7 @@
   
   
   
-  <update id="updateByPrimaryKey" parameterType="com.excelib.domain.model.EmployeesPOJO">
+  <update id="updateByPrimaryKey" parameterType="com.excelib.domain.model.Employees">
     update EMPLOYEES
     set FIRST_NAME = #{firstName,jdbcType=VARCHAR},
       LAST_NAME = #{lastName,jdbcType=VARCHAR},
