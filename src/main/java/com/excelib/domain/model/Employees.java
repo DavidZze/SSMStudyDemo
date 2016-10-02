@@ -42,6 +42,18 @@ public class Employees {
     
     private Departments departments;
 
+    /** 空构造器*/
+    public Employees(){
+    	
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
     public Departments getDepartments() {
 		return departments;
 	}

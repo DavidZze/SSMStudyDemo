@@ -90,6 +90,22 @@ public class EmployeesController {
 		// TODO Auto-generated method stub
 		String departmentName = dept.getDepartmentName();
 		System.out.println("--- deptName: " + departmentName);
+		
+		List<Employees> employeesList = dept.getEmployeesList();
+		int size = employeesList.size();
+		if(size > 0) {
+			String firstName = employeesList.get(0).getFirstName();
+			System.out.println("----firstName: " + firstName);
+		}
+		
+//		List<Integer> listNum = dept.getListNum();
+//		int size = listNum.size();
+//		if(size > 0) {
+//			Integer index0 = listNum.get(0);
+//			System.out.println("----listNum.get(0): " + index0);
+//		}
+		
+		
 		dept.setDepartmentName(departmentName + "_add");
 		return dept;
 	}

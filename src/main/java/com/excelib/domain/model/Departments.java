@@ -1,5 +1,9 @@
 package com.excelib.domain.model;
 
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 public class Departments {
     private Short departmentId;
 
@@ -11,9 +15,43 @@ public class Departments {
 
     private Short fauxColumn;
     
+    private List<Integer> listNum;
+    
+    @JsonProperty("employeesList")
+    private List<Employees> employeesList;
+    
+    /** 构造器*/
+    public Departments(){
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    public List<Integer> getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(List<Integer> listNum) {
+		this.listNum = listNum;
+	}
+
+	
+    
      
 
-    public Short getDepartmentId() {
+    public List<Employees> getEmployeesList() {
+		return employeesList;
+	}
+
+	public void setEmployeesList(List<Employees> employeesList) {
+		this.employeesList = employeesList;
+	}
+
+	public Short getDepartmentId() {
         return departmentId;
     }
 
