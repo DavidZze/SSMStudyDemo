@@ -42,11 +42,11 @@ public class Employees {
     
     private Departments departments;
 
-    /** 空构造器*/
-    public Employees(){
-    	
-    	
-    }
+//    /** 空构造器*/
+//    public Employees(){
+//    	
+//    	
+//    }
     
     
     

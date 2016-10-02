@@ -25,7 +25,8 @@ public class Departments {
     	
     }
     
-    
+     public Departments(Employees emp){
+     }
     
     
     
