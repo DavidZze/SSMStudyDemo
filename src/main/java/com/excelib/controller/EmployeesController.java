@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.excelib.domain.model.Departments;
 import com.excelib.domain.model.Employees;
 import com.excelib.domain.services.intf.EmployeesServices;
 
@@ -78,10 +79,19 @@ public class EmployeesController {
 	}
 	
 	
-	
-	public  void getRequestBodyValue() {
+	/**
+	 * 获取 POST 请求body 中的数据：
+	 * url:http://localhost:8080/TestApp/employees/postBodyValue
+	 * @param emp
+	 */
+	@RequestMapping(value="/postBodyValue", method={RequestMethod.POST})
+	@ResponseBody
+	public  Departments getRequestBodyValue(@RequestBody Departments dept) {
 		// TODO Auto-generated method stub
-
+		String departmentName = dept.getDepartmentName();
+		System.out.println("--- deptName: " + departmentName);
+		dept.setDepartmentName(departmentName + "_add");
+		return dept;
 	}
 	
 	

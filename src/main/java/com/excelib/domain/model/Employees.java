@@ -39,8 +39,18 @@ public class Employees {
     private Short tempDyncTableCode;
 
     private String tempDyncTableName;
+    
+    private Departments departments;
 
-    public Integer getEmployeeId() {
+    public Departments getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(Departments departments) {
+		this.departments = departments;
+	}
+
+	public Integer getEmployeeId() {
         return employeeId;
     }
 
