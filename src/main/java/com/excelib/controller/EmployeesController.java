@@ -2,6 +2,7 @@ package com.excelib.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -42,6 +44,7 @@ public class EmployeesController {
 	
 	/**
 	 * 测试：从 POST 与 GET 请求中获取param。
+	 * 描述：获取客户端提交的数据与 http 信息（请求 url, 请求的方法，http 请求参数的值）
 	 * @param request
 	 * @param response
 	 * @throws IOException 
@@ -80,8 +83,17 @@ public class EmployeesController {
 	
 	
 	/**
-	 * 获取 POST 请求body 中的数据：
+	 * 获取 POST 请求body 中的(主从表)数据：
+	 * 描述：获取客户端提交的 json 数据，一个头记录行与多个子记录行
 	 * url:http://localhost:8080/TestApp/employees/postBodyValue
+	 * {
+			"departmentId":"100",
+			"departmentName":"zz",
+			"managerId":"",
+			"locationId":"",
+			"fauxColumn":"",
+			"employeesList":[{"firstName":"liuting"}, {"firstName":"zhouze"}]
+		}
 	 * @param emp
 	 */
 	@RequestMapping(value="/postBodyValue", method={RequestMethod.POST})
@@ -98,13 +110,6 @@ public class EmployeesController {
 			System.out.println("----firstName: " + firstName);
 		}
 		
-//		List<Integer> listNum = dept.getListNum();
-//		int size = listNum.size();
-//		if(size > 0) {
-//			Integer index0 = listNum.get(0);
-//			System.out.println("----listNum.get(0): " + index0);
-//		}
-		
 		
 		dept.setDepartmentName(departmentName + "_add");
 		return dept;
@@ -118,7 +123,9 @@ public class EmployeesController {
 	
 	
 	
-	/** 返回一条数据情况测试*/
+	/** 返回一条数据情况测试
+	 *  描述：根据员工 id 查询某位员工基本信息
+	 */
 	// 处理POST类型的请求 匹配："/"
 	@RequestMapping(value={"/{empId}"},method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
@@ -130,16 +137,37 @@ public class EmployeesController {
 		return employeesPOJO;
 	}
 	
-	/** 返回多条数据情况测试 */
-	@RequestMapping(value="/emps", method= {RequestMethod.POST, RequestMethod.GET})
+	
+	
+	/** 
+	 *  方式一：通过@RequestParam 的方式传参
+	 *  返回多条数据情况测试 
+	 *  描述：根据部门 id 与薪资查询符合条件的员工信息 
+	 */
+	@RequestMapping(value="/emps1", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public List<Employees> getEmp(Integer deptId, Integer salary) {
+	public List<Employees> getEmp1(@RequestParam Integer deptId, 
+								   @RequestParam BigDecimal salary) {
 		
+		List<Employees> empList = employeesServices.selectByDeptIdAndSalary(deptId, salary);
+		return empList;
+	}
+	
+	/** 
+	 *  方式二：通过@RequestBody 的方式传参
+	 *  返回多条数据情况测试 
+	 *  描述：根据部门 id 与薪资查询符合条件的员工信息 
+	 */
+	@RequestMapping(value="/emps2", method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public List<Employees> getEmp2(@RequestBody Employees employees) {
+		
+		Integer deptId = employees.getDepartmentId();
+		BigDecimal salary = employees.getSalary();
 		List<Employees> empList = employeesServices.selectByDeptIdAndSalary(deptId, salary);
 		
 		return empList;
 	}
-	
 	
 	
 	

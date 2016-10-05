@@ -23,6 +23,7 @@ import com.excelib.domain.model.Person;
  * @author zhouze
  */
 @Controller
+@RequestMapping("person")
 public class PersonController {
 
 	
@@ -60,7 +61,7 @@ public class PersonController {
 	 * @param person
 	 * @return
 	 */
-	@RequestMapping(value="/person/login", method=RequestMethod.POST)
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody Person login(@RequestBody Person person) {
 		this.passDomain();
 		System.out.println("---- Server do login ----");
@@ -74,10 +75,11 @@ public class PersonController {
 	 * @param person
 	 * @return
 	 */
-	@RequestMapping(value="/person/login2", method=RequestMethod.GET)
-	public @ResponseBody Object login2(@RequestParam String name,
-									   @RequestParam int id,
-									   @RequestParam boolean status) {
+	@RequestMapping(value="/login2", method=RequestMethod.GET)
+	@ResponseBody
+	public Object login2(@RequestParam String name,
+					     @RequestParam int id,
+					     @RequestParam boolean status) {
 		
 		System.out.println("---- Server do login ----");
 //		this.passDomain();

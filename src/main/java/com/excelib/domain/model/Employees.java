@@ -24,9 +24,9 @@ public class Employees {
 
     private Integer managerId;
 
-    private Short departmentId;
+    private Integer departmentId;
 
-    private Short objectVerionNumber;
+    private Integer objectVerionNumber;
 
     private String createdBy;
 
@@ -36,7 +36,7 @@ public class Employees {
 
     private Date lastUpdateDate;
 
-    private Short tempDyncTableCode;
+    private Integer tempDyncTableCode;
 
     private String tempDyncTableName;
     
@@ -142,19 +142,19 @@ public class Employees {
         this.managerId = managerId;
     }
 
-    public Short getDepartmentId() {
+    public Integer getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Short departmentId) {
+    public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
 
-    public Short getObjectVerionNumber() {
+    public Integer getObjectVerionNumber() {
         return objectVerionNumber;
     }
 
-    public void setObjectVerionNumber(Short objectVerionNumber) {
+    public void setObjectVerionNumber(Integer objectVerionNumber) {
         this.objectVerionNumber = objectVerionNumber;
     }
 
@@ -190,11 +190,11 @@ public class Employees {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public Short getTempDyncTableCode() {
+    public Integer getTempDyncTableCode() {
         return tempDyncTableCode;
     }
 
-    public void setTempDyncTableCode(Short tempDyncTableCode) {
+    public void setTempDyncTableCode(Integer tempDyncTableCode) {
         this.tempDyncTableCode = tempDyncTableCode;
     }
 

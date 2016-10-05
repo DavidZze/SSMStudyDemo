@@ -43,16 +43,22 @@
   </select>
   
   <!-- 根据部门与薪资查询：查询返回多条记录 -->
-  <select id="selectByDeptNum" resultMap="BaseResultMap">
+  <select id="selectManyRecords" resultMap="BaseResultMap">
   	select 
-  	<include refid="Base_Column_list" />
+  	<include refid="Base_Column_List" />
   	from  employees emp
-  	where emp.department_id = {deptId, jdbcType=DECIMAL}
-  	and   emp.salary > {salary, jdbcType=DECIMAL}
+  	where emp.department_id = #{0}
+  	and   emp.salary > #{1}
   </select>
   
   
-  
+  <!-- 根据部门（集合）查询：查询返回多条记录 -->
+  <select id="inQuauseQuery" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from  employees emp
+  	where emp.department_id in #{0}
+  </select>
   
   
   

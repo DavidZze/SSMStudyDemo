@@ -1,10 +1,12 @@
 package com.excelib.infrastructure.dao;
 
-import org.apache.ibatis.annotations.Param;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.excelib.domain.model.Employees;
-import com.sun.tools.javac.util.List;
+
 
 @Repository
 public interface EmployeesMapper {
@@ -21,7 +23,8 @@ public interface EmployeesMapper {
 
     public int updateByPrimaryKey(Employees record);
     
-    public List<Employees> selectManyRecords(@Param("deptId") Integer deptId, @Param("salary") Integer salary);
+    public List<Employees> selectManyRecords(Integer deptId, BigDecimal salary);
     
+    public List<Employees> inQuauseQuery(String inList);
     
 }
