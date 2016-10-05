@@ -57,7 +57,10 @@
   	select 
   	<include refid="Base_Column_List" />
   	from  employees emp
-  	where emp.department_id in #{0}
+  	where emp.department_id in 
+  	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+  		#{item}
+  	</foreach>
   </select>
   
   

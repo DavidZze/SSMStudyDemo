@@ -3,6 +3,7 @@ package com.excelib.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -170,6 +171,33 @@ public class EmployeesController {
 	}
 	
 	
+	/**
+	 * 描述：查询多个部门下的员工：
+	 * @param deptIdList
+	 * @return
+	 */
+	@RequestMapping(value= "/emps3", method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public List<Employees> getEmpByDeptIdList(@RequestBody Integer[] deptIdList){
+		
+		System.out.println("------deptIdList: " + deptIdList[0]);
+//		List<Employees> empList = employeesServices.selectByDeptIdList(deptIdList);
+		return null;
+	}
+	
+	/**
+	 * 描述：查询多个部门下的员工：
+	 * @param deptIdList
+	 * @return
+	 */
+	@RequestMapping(value= "/emps4", method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public List<Employees> getEmpByDeptIdList2(@RequestBody List<Integer> deptIdList){
+		
+		System.out.println("------deptIdList: " + deptIdList.get(0));
+		List<Employees> empList = employeesServices.selectByDeptIdList(deptIdList);
+		return empList;
+	}
 	
 
 }

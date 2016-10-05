@@ -11,6 +11,6 @@ public interface EmployeesServices {
 	
 	public List<Employees> selectByDeptIdAndSalary(Integer deptId, BigDecimal salary);
 	
-	public List<Employees> selectByDeptIdList(String deptIdList);
+	public List<Employees> selectByDeptIdList(List deptIdList);
 
 }
