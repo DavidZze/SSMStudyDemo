@@ -34,14 +34,12 @@ public class EmployeesServicesImpl implements EmployeesServices{
 	/** 根据部门 id 与薪资进行查询，返回多条数据*/
 	@Override
 	public List<Employees> selectByDeptIdAndSalary(Integer deptId, BigDecimal salary) {
-		// TODO Auto-generated method stub
 		return employeeMapper.selectManyRecords(deptId, salary);
 	}
 
 	/** 根据部门集合进行查询*/
 	@Override
 	public List<Employees> selectByDeptIdList(List<Integer> deptIdList) {
-		// TODO Auto-generated method stub
 //		deptIdList = "(" + deptIdList + ")";
 		return employeeMapper.inQuauseQuery(deptIdList);
 	}
@@ -49,9 +47,26 @@ public class EmployeesServicesImpl implements EmployeesServices{
 	/** 根据部门集合进行查询*/
 	@Override
 	public List<Employees> selectByDeptIdList2(String deptIdList) {
-		// TODO Auto-generated method stub
 //		deptIdList = "(" + deptIdList + ")";
 		return employeeMapper.inQuauseQuery2(deptIdList);
+	}
+
+	/** 插入一条员工记录*/
+	@Override
+	public void insertSelectiveTest(Employees employees) {
+		System.out.println("---- 查询序列值：" + employeeMapper.queryEmpSeq());
+		System.out.println("---- do insertSelectiveTest: " + employeeMapper.insertSelective(employees)); 
+	}
+
+	/** 插入多条员工记录*/
+	@Override
+	public void insertSelectiveTest_Batch(List<Employees> employeesList) {
+		// TODO Auto-generated method stub
+		int size = employeesList.size();
+		for(int i =0;i < size; i++) {
+			System.out.println("---- do insertSelectiveTest_Batch: " 
+							   + employeeMapper.insertSelective(employeesList.get(i))); 
+		}
 	}
 	
 	

@@ -209,12 +209,42 @@ public class EmployeesController {
 	 */
 	@RequestMapping(value= "/emps5", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public List<Employees> getEmpByDeptIdList3( String deptIdList){
-		
+	public List<Employees> getEmpByDeptIdList3( String deptIdList){		
 		deptIdList = "(10,20,30)";
 		List<Employees> empList = employeesServices.selectByDeptIdList2(deptIdList);
 		return empList;
 	}
+	
+	
+	/**
+	 * 描述：插入一条员工记录
+	 * @param employees
+	 */
+	@RequestMapping(value="/insert", method={RequestMethod.POST})
+	@ResponseBody
+	public String insertEmployee(@RequestBody Employees employees){
+		if( null != employees) {
+			System.out.println("---- empName: " + employees.getFirstName());
+		}
+		employeesServices.insertSelectiveTest(employees);
+		
+		return "success";
+	}
+	
+	/**
+	 * 描述：插入多条员工记录
+	 * @param employees
+	 */
+	@RequestMapping(value="/insertBatch", method={RequestMethod.POST})
+	@ResponseBody
+	public String insertEmployee_Batch(@RequestBody List<Employees> employeesList){
+		if( null != employeesList.get(0)) {
+			System.out.println("---- empName: " + employeesList.get(0).getFirstName());
+		}
+		employeesServices.insertSelectiveTest_Batch(employeesList);
+		return "success";
+	}
+	
 	
 
 }

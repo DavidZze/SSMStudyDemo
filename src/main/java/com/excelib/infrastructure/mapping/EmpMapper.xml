@@ -34,6 +34,14 @@
     LAST_UPDATED_BY, LAST_UPDATE_DATE, TEMP_DYNC_TABLE_CODE, TEMP_DYNC_TABLE_NAME
   </sql>
   
+  
+  <!-- 查询序列 -->
+  <select id="queryEmpSeq" resultType="java.lang.Integer" useCache="false" flushCache="true" >
+  SELECT EMPLOYEES_SEQ.NEXTVAL FROM DUAL
+  </select>
+  
+  
+  
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -80,7 +88,7 @@
     where EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL}
   </delete>
   
-  
+  <!-- 插入 -->
   <insert id="insert" parameterType="com.excelib.domain.model.Employees">
     insert into EMPLOYEES (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, 
       EMAIL, PHONE_NUMBER, HIRE_DATE, 
@@ -98,13 +106,17 @@
       )
   </insert>
   
-  
+  <!-- 插入，并且只更新非空的字段值 -->
   <insert id="insertSelective" parameterType="com.excelib.domain.model.Employees">
+  	<selectKey keyProperty="employeeId" resultType="int" order="BEFORE">
+      select EMPLOYEES_SEQ.nextval from dual
+    </selectKey>
     insert into EMPLOYEES
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="employeeId != null">
+      EMPLOYEE_ID,
+      <!-- <if test="employeeId != null">
         EMPLOYEE_ID,
-      </if>
+      </if> -->
       <if test="firstName != null">
         FIRST_NAME,
       </if>
@@ -158,9 +170,10 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="employeeId != null">
+      #{employeeId},
+      <!-- <if test="employeeId != null">
         #{employeeId,jdbcType=DECIMAL},
-      </if>
+      </if> -->
       <if test="firstName != null">
         #{firstName,jdbcType=VARCHAR},
       </if>

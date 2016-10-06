@@ -29,4 +29,7 @@ public interface EmployeesMapper {
     
     public List<Employees> inQuauseQuery2(String inList);
     
+    /** 获取序列值 */
+    public int queryEmpSeq();
+    
 }
