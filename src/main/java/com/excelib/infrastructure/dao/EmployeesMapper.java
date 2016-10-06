@@ -25,6 +25,8 @@ public interface EmployeesMapper {
     
     public List<Employees> selectManyRecords(Integer deptId, BigDecimal salary);
     
-    public List<Employees> inQuauseQuery(List inList);
+    public List<Employees> inQuauseQuery(List<Integer> inList);
+    
+    public List<Employees> inQuauseQuery2(String inList);
     
 }

@@ -40,13 +40,19 @@ public class EmployeesServicesImpl implements EmployeesServices{
 
 	/** 根据部门集合进行查询*/
 	@Override
-	public List<Employees> selectByDeptIdList(List deptIdList) {
+	public List<Employees> selectByDeptIdList(List<Integer> deptIdList) {
 		// TODO Auto-generated method stub
 //		deptIdList = "(" + deptIdList + ")";
 		return employeeMapper.inQuauseQuery(deptIdList);
 	}
 	
-	
+	/** 根据部门集合进行查询*/
+	@Override
+	public List<Employees> selectByDeptIdList2(String deptIdList) {
+		// TODO Auto-generated method stub
+//		deptIdList = "(" + deptIdList + ")";
+		return employeeMapper.inQuauseQuery2(deptIdList);
+	}
 	
 	
 	

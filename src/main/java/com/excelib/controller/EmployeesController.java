@@ -199,5 +199,22 @@ public class EmployeesController {
 		return empList;
 	}
 	
+	/**
+	 * 失败
+	 * 描述：查询多个部门下的员工：
+	 * 结果：
+	 * 异常，无效数字异常。
+	 * @param deptIdList
+	 * @return
+	 */
+	@RequestMapping(value= "/emps5", method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public List<Employees> getEmpByDeptIdList3( String deptIdList){
+		
+		deptIdList = "(10,20,30)";
+		List<Employees> empList = employeesServices.selectByDeptIdList2(deptIdList);
+		return empList;
+	}
+	
 
 }
