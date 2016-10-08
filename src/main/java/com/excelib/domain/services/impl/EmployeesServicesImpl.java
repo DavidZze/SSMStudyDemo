@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excelib.domain.model.Employees;
 import com.excelib.domain.services.intf.EmployeesServices;
@@ -60,13 +61,16 @@ public class EmployeesServicesImpl implements EmployeesServices{
 
 	/** 插入多条员工记录*/
 	@Override
+	@Transactional
 	public void insertSelectiveTest_Batch(List<Employees> employeesList) {
 		// TODO Auto-generated method stub
 		int size = employeesList.size();
 		for(int i =0;i < size; i++) {
 			System.out.println("---- do insertSelectiveTest_Batch: " 
 							   + employeeMapper.insertSelective(employeesList.get(i))); 
+			
 		}
+//		throw new RuntimeException();
 	}
 	
 	

@@ -27,6 +27,7 @@ import com.alibaba.fastjson.JSON;
 import com.excelib.domain.model.Departments;
 import com.excelib.domain.model.Employees;
 import com.excelib.domain.services.intf.EmployeesServices;
+import com.excelib.util.ResultObj;
 
 @Controller
 @RequestMapping("/employees")
@@ -130,12 +131,23 @@ public class EmployeesController {
 	// 处理POST类型的请求 匹配："/"
 	@RequestMapping(value={"/{empId}"},method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public  Employees getEmp(@PathVariable Integer empId) {
+	public  ResultObj getEmp(@PathVariable Integer empId) {
+		
+		// 结果对象
+		ResultObj resultObj = new ResultObj();
+		
+		// 业务逻辑处理
 		logger.info("======method getEmp(@PathVariable Integer empId) ========");
 		Employees employeesPOJO = employeesServices.selectByEmpId(empId);
 		String result = JSON.toJSONString(employeesPOJO);
 		System.out.println("-----result:json: " + result);
-		return employeesPOJO;
+		
+		// 结果处理
+		resultObj.setCode(ResultObj.CODE_OK);
+		resultObj.setMessage("success");
+		resultObj.setData(employeesPOJO);
+		
+		return resultObj;
 	}
 	
 	
@@ -147,11 +159,21 @@ public class EmployeesController {
 	 */
 	@RequestMapping(value="/emps1", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public List<Employees> getEmp1(@RequestParam Integer deptId, 
+	public ResultObj getEmp1(@RequestParam Integer deptId, 
 								   @RequestParam BigDecimal salary) {
+		// 结果对象
+		ResultObj resultObj = new ResultObj();
 		
+		// 业务逻辑处理
 		List<Employees> empList = employeesServices.selectByDeptIdAndSalary(deptId, salary);
-		return empList;
+		
+		// 结果处理
+		resultObj.setCode(ResultObj.CODE_OK);
+		resultObj.setMessage("success");
+		resultObj.setData(empList);
+		
+		return resultObj;
+		
 	}
 	
 	/** 
@@ -161,13 +183,23 @@ public class EmployeesController {
 	 */
 	@RequestMapping(value="/emps2", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public List<Employees> getEmp2(@RequestBody Employees employees) {
+	public ResultObj getEmp2(@RequestBody Employees employees) {
 		
+		// 结果对象
+		ResultObj resultObj = new ResultObj();
+		
+		// 业务逻辑处理
 		Integer deptId = employees.getDepartmentId();
 		BigDecimal salary = employees.getSalary();
 		List<Employees> empList = employeesServices.selectByDeptIdAndSalary(deptId, salary);
 		
-		return empList;
+		// 结果处理
+		resultObj.setCode(ResultObj.CODE_OK);
+		resultObj.setMessage("success");
+		resultObj.setData(empList);
+		
+		return resultObj;
+		
 	}
 	
 	
@@ -192,11 +224,21 @@ public class EmployeesController {
 	 */
 	@RequestMapping(value= "/emps4", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public List<Employees> getEmpByDeptIdList2(@RequestBody List<Integer> deptIdList){
+	public ResultObj getEmpByDeptIdList2(@RequestBody List<Integer> deptIdList){
 		
+		// 结果对象
+		ResultObj resultObj = new ResultObj();
+		
+		// 业务逻辑处理
 		System.out.println("------deptIdList: " + deptIdList.get(0));
 		List<Employees> empList = employeesServices.selectByDeptIdList(deptIdList);
-		return empList;
+		
+		// 结果处理
+		resultObj.setCode(ResultObj.CODE_OK);
+		resultObj.setMessage("success");
+		resultObj.setData(empList);
+		
+		return resultObj;
 	}
 	
 	/**
@@ -222,13 +264,23 @@ public class EmployeesController {
 	 */
 	@RequestMapping(value="/insert", method={RequestMethod.POST})
 	@ResponseBody
-	public String insertEmployee(@RequestBody Employees employees){
+	public ResultObj insertEmployee(@RequestBody Employees employees){
+		
+		// 结果对象
+		ResultObj resultObj = new ResultObj();
+		
+		// 业务逻辑处理
 		if( null != employees) {
 			System.out.println("---- empName: " + employees.getFirstName());
 		}
 		employeesServices.insertSelectiveTest(employees);
 		
-		return "success";
+		// 结果处理
+		resultObj.setCode(ResultObj.CODE_OK);
+		resultObj.setMessage("success");
+//		resultObj.setData(null);
+		
+		return resultObj;
 	}
 	
 	/**
@@ -237,12 +289,23 @@ public class EmployeesController {
 	 */
 	@RequestMapping(value="/insertBatch", method={RequestMethod.POST})
 	@ResponseBody
-	public String insertEmployee_Batch(@RequestBody List<Employees> employeesList){
+	public ResultObj insertEmployee_Batch(@RequestBody List<Employees> employeesList){
+		
+		// 结果对象
+		ResultObj resultObj = new ResultObj();
+		
+		// 业务逻辑处理
 		if( null != employeesList.get(0)) {
 			System.out.println("---- empName: " + employeesList.get(0).getFirstName());
 		}
 		employeesServices.insertSelectiveTest_Batch(employeesList);
-		return "success";
+		
+		// 结果处理
+		resultObj.setCode(ResultObj.CODE_OK);
+		resultObj.setMessage("success");
+//		resultObj.setData(null);
+		
+		return resultObj;
 	}
 	
 	
