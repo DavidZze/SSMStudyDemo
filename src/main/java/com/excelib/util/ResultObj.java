@@ -12,13 +12,13 @@ package com.excelib.util;
 public class ResultObj {
 	
 	/** 缺省值，服务端处理成功。*/
-	public final static String CODE_OK = "200";
+	public static final String CODE_OK = "200";
 	/** 由于包含语法错误，当前请求无法被服务器理解。 */
-	public final static String CODE_BAD_REQUEST = "400";
+	public static final String CODE_BAD_REQUEST = "400";
 	/** 服务器已经理解请求，但是拒绝执行它（权限拒绝）。*/
-	public final static String CODE_FORBIDDEN = "403";
+	public static final String CODE_FORBIDDEN = "403";
 	/** 服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。*/
-	public final static String CODE_SERVER_ERROR = "500";
+	public static final String CODE_SERVER_ERROR = "500";
 	
 	private String code = ResultObj.CODE_OK;
 	private String message;
