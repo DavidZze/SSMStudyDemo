@@ -61,7 +61,7 @@ public class EmployeesServicesImpl implements EmployeesServices{
 
 	/** 插入多条员工记录*/
 	@Override
-	@Transactional
+//	@Transactional
 	public void insertSelectiveTest_Batch(List<Employees> employeesList) {
 		// TODO Auto-generated method stub
 		int size = employeesList.size();

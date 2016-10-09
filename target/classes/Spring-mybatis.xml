@@ -66,14 +66,14 @@
         <property name="dataSource" ref="dataSource" />  
     </bean>  
     
-    <!-- 启用对事务注解的支持 -->  
+    <!--     启用对事务注解的支持   -->
     <tx:annotation-driven transaction-manager="transactionManager" />
     
     <!-- 定义aop:advices 切入点方法执行前后的动作（切入点中方法的过滤） -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="*" propagation="SUPPORTS" />
+			<tx:method name="insert*" propagation="REQUIRED"/><!-- 必开启事务控制 -->
 		</tx:attributes>
 	</tx:advice>
     
