@@ -15,6 +15,8 @@ public interface EmployeesServices {
 	
 	public List<Employees> selectByDeptIdList2(String deptIdList);
 	
+	public List<Employees> selectByDeptIdList3(List<Integer> deptIdList, Integer Salary);
+	
 	/** 插入一条员工数据*/
 	public void insertSelectiveTest(Employees employees);
 	

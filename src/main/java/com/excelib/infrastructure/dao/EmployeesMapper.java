@@ -2,6 +2,7 @@ package com.excelib.infrastructure.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +29,8 @@ public interface EmployeesMapper {
     public List<Employees> inQuauseQuery(List<Integer> inList);
     
     public List<Employees> inQuauseQuery2(String inList);
+    
+    public List<Employees> inQuauseQuery3(Map<String, Object> paramMap);
     
     /** 获取序列值 */
     public int queryEmpSeq();

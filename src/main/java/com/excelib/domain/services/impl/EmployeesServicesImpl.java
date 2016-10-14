@@ -1,7 +1,9 @@
 package com.excelib.domain.services.impl;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,7 +18,8 @@ import com.excelib.infrastructure.dao.EmployeesMapper;
 @Service("EemployeesService")
 public class EmployeesServicesImpl implements EmployeesServices{
 
-	@Resource
+	private static final HashMap String = null;
+    @Resource
 	public EmployeesMapper employeeMapper;
 	
 	public EmployeesServicesImpl() {
@@ -52,6 +55,18 @@ public class EmployeesServicesImpl implements EmployeesServices{
 		return employeeMapper.inQuauseQuery2(deptIdList);
 	}
 
+	/** 根据部门集合进行查询*/
+    @Override
+    public List<Employees> selectByDeptIdList3(List<Integer> deptIdList, Integer salary) {
+//      deptIdList = "(" + deptIdList + ")";
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("deptIdList", deptIdList);
+        paramMap.put("salary", salary);
+        return employeeMapper.inQuauseQuery3(paramMap);
+    }
+	
+	
+	
 	/** 插入一条员工记录*/
 	@Override
 	public void insertSelectiveTest(Employees employees) {

@@ -1,3 +1,9 @@
+/target
+*.class
+
 
 *.class
-/target
+
+target/classes/com/excelib/domain/services/intf/EmployeesServices.class
+
+*.class

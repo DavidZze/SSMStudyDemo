@@ -71,6 +71,19 @@
   	</foreach>
   </select>
   
+    <!-- 根据部门（集合）查询：查询返回多条记录 -->
+  <select id="inQuauseQuery3" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from  employees emp
+    where emp.department_id in 
+    <foreach item="item" index="index" collection="deptIdList" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    and salary > #{salary}
+  </select>
+  
+  
   <!-- 根据部门（集合）查询：查询返回多条记录 -->
   <select id="inQuauseQuery2" resultMap="BaseResultMap">
   	select 

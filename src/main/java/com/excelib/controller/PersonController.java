@@ -86,7 +86,7 @@ public class PersonController {
 		
 		MappingJacksonValue result = null;
 		
-		Map map = new HashMap();
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("name", name);
 		map.put("id", id);
 		map.put("status", status);

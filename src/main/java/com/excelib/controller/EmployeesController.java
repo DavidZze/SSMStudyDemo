@@ -205,6 +205,9 @@ public class EmployeesController {
 	
 	/**
 	 * 描述：查询多个部门下的员工：
+	 * 重点：参数为数组Array
+	 * 备注：
+	 * 不推荐使用数组作为参数接口。数组作为接口影响性能。具体百度。
 	 * @param deptIdList
 	 * @return
 	 */
@@ -219,6 +222,7 @@ public class EmployeesController {
 	
 	/**
 	 * 描述：查询多个部门下的员工：
+	 * 重点：使用集合类型List.
 	 * @param deptIdList
 	 * @return
 	 */
@@ -240,6 +244,34 @@ public class EmployeesController {
 		
 		return resultObj;
 	}
+	
+	/**
+     * 描述：查询多个部门下的员工：
+     * 重点：使用集合类型List.背后逻辑区别于方法3.
+     * 该方法测试MyBatis 含有List 与其它参数的情况。
+     * @param deptIdList
+     * @return
+     */
+    @RequestMapping(value= "/empsInQuery", method={RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public ResultObj getEmpByDeptIdList3(@RequestBody List<Integer> deptIdList){
+        
+        // 结果对象
+        ResultObj resultObj = new ResultObj();
+        
+        // 业务逻辑处理
+        System.out.println("------参数deptIdList: " + deptIdList.get(0));
+        List<Employees> empList = employeesServices.selectByDeptIdList3(deptIdList, 10000);
+        
+        // 结果处理
+        resultObj.setCode(ResultObj.CODE_OK);
+        resultObj.setMessage("success");
+        resultObj.setData(empList);
+        
+        return resultObj;
+    }
+	
+	
 	
 	/**
 	 * 失败
