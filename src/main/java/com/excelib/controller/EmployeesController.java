@@ -260,7 +260,7 @@ public class EmployeesController {
         ResultObj resultObj = new ResultObj();
         
         // 业务逻辑处理
-        System.out.println("------参数deptIdList: " + deptIdList.get(0));
+//        System.out.println("------参数deptIdList: " + deptIdList.get(0));
         List<Employees> empList = employeesServices.selectByDeptIdList3(deptIdList, 10000);
         
         // 结果处理

@@ -60,6 +60,8 @@ public class EmployeesServicesImpl implements EmployeesServices{
     public List<Employees> selectByDeptIdList3(List<Integer> deptIdList, Integer salary) {
 //      deptIdList = "(" + deptIdList + ")";
         Map<String,Object> paramMap = new HashMap<String,Object>();
+        int size = deptIdList.size();
+        paramMap.put("size", size);
         paramMap.put("deptIdList", deptIdList);
         paramMap.put("salary", salary);
         return employeeMapper.inQuauseQuery3(paramMap);

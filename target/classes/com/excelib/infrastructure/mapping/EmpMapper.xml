@@ -76,11 +76,15 @@
     select 
     <include refid="Base_Column_List" />
     from  employees emp
-    where emp.department_id in 
-    <foreach item="item" index="index" collection="deptIdList" open="(" separator="," close=")">
+    where  
+    <if test="size > 0">
+        emp.department_id in 
+        <foreach item="item" index="index" collection="deptIdList" open="(" separator="," close=")">
         #{item}
-    </foreach>
-    and salary > #{salary}
+        </foreach>
+        and
+    </if>
+     salary > #{salary}
   </select>
   
   
