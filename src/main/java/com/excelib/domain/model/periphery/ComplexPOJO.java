@@ -23,12 +23,25 @@ public class ComplexPOJO {
     private Employees employees;
     private List<Employees> empList;
     private List<Object> lines;
+    private Object lines2;
     
     /** 缺省构造器*/
     public ComplexPOJO() {
     }
     
     
+
+    public Object getLines2() {
+        return lines2;
+    }
+
+
+
+    public void setLines2(Object lines2) {
+        this.lines2 = lines2;
+    }
+
+
 
     public List<Object> getLines() {
         return lines;

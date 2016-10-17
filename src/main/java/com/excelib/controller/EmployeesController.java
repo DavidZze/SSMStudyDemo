@@ -377,6 +377,15 @@ public class EmployeesController {
         
         complexPOJO.setLines(lines);
         
+        
+        ComplexPOJO complexPOJO2 = new ComplexPOJO();
+        Employees employees1 = new Employees();
+        employees1.setFirstName("zhouze----liuting");
+        complexPOJO2.setEmployees(employees1);
+        complexPOJO2.setLines(lines);
+        complexPOJO.setLines2(complexPOJO2);
+        
+        
         // 结果处理
         resultObj.setCode(ResultObj.CODE_OK);
         resultObj.setMessage("success");
