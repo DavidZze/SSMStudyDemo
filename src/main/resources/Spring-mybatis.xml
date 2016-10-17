@@ -84,6 +84,5 @@
 					  expression="execution(* com.excelib.domain.services.impl.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
 	</aop:config>
-        
-                        
+	                        
 </beans>                        

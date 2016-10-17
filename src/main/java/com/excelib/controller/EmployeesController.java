@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.excelib.domain.model.Departments;
 import com.excelib.domain.model.Employees;
+import com.excelib.domain.model.periphery.ComplexPOJO;
 import com.excelib.domain.services.intf.EmployeesServices;
 import com.excelib.util.ResultObj;
 
@@ -339,6 +340,51 @@ public class EmployeesController {
 		
 		return resultObj;
 	}
+	
+	
+	
+	@RequestMapping(value= "/complexServices/{type}", method={RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public ResultObj complexPOJOTest(@PathVariable String type){
+        
+        // 结果对象
+        ResultObj resultObj = new ResultObj();
+        
+        // 业务逻辑处理
+        ComplexPOJO complexPOJO = new ComplexPOJO();
+        List<Object> lines = new ArrayList<Object>();
+        if ("dept".equals(type)) {
+            Departments departments1 = new Departments();
+            departments1.setDepartmentName("IT");
+            Departments departments2 = new Departments();
+            lines.add(departments1);
+            departments2.setDepartmentName("HR");
+            List<Employees> employeesList = new ArrayList<>();
+            Employees employees1 = new Employees();
+            employees1.setFirstName("zhouze");
+            Employees employees2 = new Employees();
+            employees2.setFirstName("liuting");
+            employeesList.add(employees1);
+            employeesList.add(employees2);
+            departments2.setEmployeesList(employeesList);
+            lines.add(departments2);
+        } else {
+            Employees employees1 = new Employees();
+            Employees employees2 = new Employees();
+            lines.add(employees1);
+            lines.add(employees2);
+        }
+        
+        complexPOJO.setLines(lines);
+        
+        // 结果处理
+        resultObj.setCode(ResultObj.CODE_OK);
+        resultObj.setMessage("success");
+        resultObj.setData(complexPOJO);
+        
+        return resultObj;
+    }
+	
 	
 	
 
