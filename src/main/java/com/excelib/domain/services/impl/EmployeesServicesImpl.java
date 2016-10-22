@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.excelib.domain.model.Employees;
 import com.excelib.domain.services.intf.EmployeesServices;
@@ -18,7 +17,6 @@ import com.excelib.infrastructure.dao.EmployeesMapper;
 @Service("EemployeesService")
 public class EmployeesServicesImpl implements EmployeesServices{
 
-	private static final HashMap String = null;
     @Resource
 	public EmployeesMapper employeeMapper;
 	
@@ -80,7 +78,6 @@ public class EmployeesServicesImpl implements EmployeesServices{
 	@Override
 //	@Transactional
 	public void insertSelectiveTest_Batch(List<Employees> employeesList) {
-		// TODO Auto-generated method stub
 		int size = employeesList.size();
 		for(int i =0;i < size; i++) {
 			System.out.println("---- do insertSelectiveTest_Batch: " 
@@ -89,6 +86,12 @@ public class EmployeesServicesImpl implements EmployeesServices{
 		}
 //		throw new RuntimeException();
 	}
+
+    @Override
+    public List<Integer> queryOrclComplex() {
+         
+        return employeeMapper.queryOrclComplex();
+    }
 	
 	
 	

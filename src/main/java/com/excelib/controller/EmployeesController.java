@@ -6,15 +6,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +41,25 @@ public class EmployeesController {
 	public EmployeesController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@RequestMapping(value="/queryOrclComplex", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public ResultObj queryComplexFunc() {
+	    // 结果对象
+        ResultObj resultObj = new ResultObj();
+        
+        // 业务逻辑处理
+        Object data = employeesServices.queryOrclComplex();
+        
+        // 结果处理
+        resultObj.setCode(ResultObj.CODE_OK);
+        resultObj.setMessage("success");
+        resultObj.setData(data);
+        
+        return resultObj;
+	}
+	
+	
 	
 	/**
 	 * 测试：从 POST 与 GET 请求中获取param。

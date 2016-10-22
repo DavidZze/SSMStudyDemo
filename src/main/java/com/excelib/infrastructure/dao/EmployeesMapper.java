@@ -35,4 +35,8 @@ public interface EmployeesMapper {
     /** 获取序列值 */
     public int queryEmpSeq();
     
+    /** oracle 复杂函数调用测试*/
+    public List<Integer> queryOrclComplex();
+    
+    
 }

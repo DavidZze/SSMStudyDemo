@@ -35,6 +35,14 @@
   </sql>
   
   
+  <select id="queryOrclComplex" resultType="java.lang.Integer">
+    select 123 as code  
+      from table(dbms_xplan.display) 
+  </select>
+  
+  
+  
+  
   <!-- 查询序列 -->
   <select id="queryEmpSeq" resultType="java.lang.Integer" useCache="false" flushCache="true" >
   SELECT EMPLOYEES_SEQ.NEXTVAL FROM DUAL

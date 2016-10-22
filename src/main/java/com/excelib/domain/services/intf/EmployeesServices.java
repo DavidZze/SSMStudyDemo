@@ -23,4 +23,7 @@ public interface EmployeesServices {
 	/**  插入多条员工数据 */
 	public void insertSelectiveTest_Batch(List<Employees> employeesList);
 
+	/** oracle复杂函数调用测试*/
+	public List<Integer> queryOrclComplex();
+	
 }
