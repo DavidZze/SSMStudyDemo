@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import com.alibaba.fastjson.JSON;
 import com.excelib.domain.model.Departments;
 import com.excelib.domain.model.Employees;
 import com.excelib.domain.model.periphery.ComplexPOJO;
+import com.excelib.domain.services.intf.Async1Services;
 import com.excelib.domain.services.intf.EmployeesServices;
 import com.excelib.util.ResultObj;
 
@@ -32,14 +34,18 @@ import com.excelib.util.ResultObj;
 public class EmployeesController {
 
 	
-	private final Log logger = LogFactory.getLog(EmployeesController.class);
+	private final Log logger = LogFactory.getLog(EmployeesController.class.getName());
 	
 	@Resource
 	private EmployeesServices employeesServices;
 	
 	
+    // 异步服务
+    @Resource
+    private Async1Services asyncDemoServices;
+	
+	
 	public EmployeesController() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@RequestMapping(value="/queryOrclComplex", method={RequestMethod.GET, RequestMethod.POST})
@@ -118,7 +124,6 @@ public class EmployeesController {
 	@RequestMapping(value="/postBodyValue", method={RequestMethod.POST})
 	@ResponseBody
 	public  Departments getRequestBodyValue(@RequestBody Departments dept) {
-		// TODO Auto-generated method stub
 		String departmentName = dept.getDepartmentName();
 		System.out.println("--- deptName: " + departmentName);
 		
@@ -154,8 +159,11 @@ public class EmployeesController {
 		ResultObj resultObj = new ResultObj();
 		
 		// 业务逻辑处理
-		logger.info("======method getEmp(@PathVariable Integer empId) ========");
 		Employees employeesPOJO = employeesServices.selectByEmpId(empId);
+		
+		// 异步测试
+		asyncDemoServices.testAsyncMethodNoReturnA();
+		
 		String result = JSON.toJSONString(employeesPOJO);
 		System.out.println("-----result:json: " + result);
 		
@@ -166,6 +174,18 @@ public class EmployeesController {
 		
 		return resultObj;
 	}
+	
+    @Async
+    public void testAsyncMethod(){
+        try {
+            //让程序暂停100秒，相当于执行一个很耗时的任务
+            System.out.println("begin ------ testAsyncMethod");
+            Thread.sleep(10000);
+            System.out.println("end ------ testAsyncMethod");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }	
 	
 	
 	

@@ -7,6 +7,7 @@
    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
+	
 	<!--SpringMVC 一键式配置方法， SPringMVC自动注册组件-->
 	<mvc:annotation-driven >
 	<!-- <mvc:message-converters>
@@ -72,9 +73,6 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="resolveLazily" value="true" />
 	</bean>
-	
-	
-	
 	
 	
 </beans>	

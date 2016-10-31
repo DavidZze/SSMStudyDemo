@@ -3,6 +3,10 @@ package com.excelib.domain.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class Employees {
     private Integer employeeId;
 
@@ -42,15 +46,11 @@ public class Employees {
     
     private Departments departments;
 
-//    /** 空构造器*/
-//    public Employees(){
-//    	
-//    	
-//    }
-    
-    
-    
-    
+    /** 空构造器*/
+    public Employees(){
+    	
+    	
+    }
     
     
     
