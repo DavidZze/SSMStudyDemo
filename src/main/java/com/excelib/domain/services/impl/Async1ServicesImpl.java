@@ -64,6 +64,7 @@ public class Async1ServicesImpl implements Async1Services{
 
     private void printCResult() throws InterruptedException, ExecutionException {
         Future<String> future = async3Services.asyncMethodWithReturnType();
+        System.out.println(future);
 //        while (true) {  ///这里使用了循环判断，等待获取结果信息  
 //            if (future.isDone()) {  //判断是否执行完毕  
 //                System.out.println("Result from asynchronous process - " + future.get());  

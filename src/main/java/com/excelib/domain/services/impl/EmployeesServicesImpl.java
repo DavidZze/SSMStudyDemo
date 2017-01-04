@@ -20,14 +20,17 @@ public class EmployeesServicesImpl implements EmployeesServices{
     @Resource
 	public EmployeesMapper employeeMapper;
 	
+    
+    private String unitTest1;
+    private String unitTest2;
+    private String unitTest3;
+    
 	public EmployeesServicesImpl() {
-		// TODO Auto-generated constructor stub
 		
 	}
 
 	@Override
 	public Employees selectByEmpId(Integer employeeId) {
-		// TODO Auto-generated method stub
 		System.out.println("----- do ServiceImpl ----");
 		
 		return employeeMapper.selectByPrimaryKey(employeeId);
@@ -79,7 +82,7 @@ public class EmployeesServicesImpl implements EmployeesServices{
 //	@Transactional
 	public void insertSelectiveTest_Batch(List<Employees> employeesList) {
 		int size = employeesList.size();
-		for(int i =0;i < size; i++) {
+		for(int i = 0; i < size; i++) {
 			System.out.println("---- do insertSelectiveTest_Batch: " 
 							   + employeeMapper.insertSelective(employeesList.get(i))); 
 			
@@ -91,6 +94,30 @@ public class EmployeesServicesImpl implements EmployeesServices{
     public List<Integer> queryOrclComplex() {
          
         return employeeMapper.queryOrclComplex();
+    }
+
+    public String getUnitTest1() {
+        return unitTest1;
+    }
+
+    public void setUnitTest1(String unitTest1) {
+        this.unitTest1 = unitTest1;
+    }
+
+    public String getUnitTest2() {
+        return unitTest2;
+    }
+
+    public void setUnitTest2(String unitTest2) {
+        this.unitTest2 = unitTest2;
+    }
+
+    public String getUnitTest3() {
+        return unitTest3;
+    }
+
+    public void setUnitTest3(String unitTest3) {
+        this.unitTest3 = unitTest3;
     }
 	
 	

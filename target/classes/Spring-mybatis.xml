@@ -22,7 +22,7 @@
                         
     <!-- 需要Spring DI管理的包 -->  
     <context:component-scan base-package="com.excelib" >
-    	 <context:exclude-filter  type="annotation" expression="org.springframework.stereotype.Controller" />
+         <context:exclude-filter  type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>  
     
     <!-- 加载 jdbc 配置文件 -->

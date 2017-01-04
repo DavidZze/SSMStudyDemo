@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,9 +57,13 @@ public class EmployeesController {
         Object data = employeesServices.queryOrclComplex();
         
         // 结果处理
-        resultObj.setCode(ResultObj.CODE_OK);
+        resultObj.setCode(ResultObj.CODE_FORBIDDEN);
         resultObj.setMessage("success");
         resultObj.setData(data);
+        
+//        if (1 == 1) {
+//            throw new RuntimeException();
+//        }
         
         return resultObj;
 	}
@@ -80,19 +83,19 @@ public class EmployeesController {
 		
 		
 		String name = request.getParameter("name");
-		System.out.println("-----: " + name);
+		logger.info("-----: " + name);
 		
 		
 		PrintWriter writer = response.getWriter();  
         writer.println(request.getMethod() + " " + request.getRequestURL() + " " + request.getQueryString());  
-        System.out.println(request.getMethod() + " " + request.getRequestURL() + " " + request.getQueryString());
+        logger.info(request.getMethod() + " " + request.getRequestURL() + " " + request.getQueryString());
         
         
         Map<String, String[]> params = request.getParameterMap();  
         String queryString = "";  
         for (String key : params.keySet()) {  
         	
-//        	System.out.println("---- param Name: " + key);
+//        	logger.info("---- param Name: " + key);
             String[] values = params.get(key);  
             for (int i = 0; i < values.length; i++) {  
                 String value = values[i];  
@@ -102,7 +105,7 @@ public class EmployeesController {
         // 去掉最后一个空格  
 //        queryString = queryString.substring(0, queryString.length() - 1);  
         writer.println(request.getMethod() + " " + request.getRequestURL() + " " + queryString); 
-        System.out.println(request.getMethod() + " " + request.getRequestURL() + " " + queryString);
+        logger.info(request.getMethod() + " " + request.getRequestURL() + " " + queryString);
 		 
 	}
 	
@@ -125,13 +128,13 @@ public class EmployeesController {
 	@ResponseBody
 	public  Departments getRequestBodyValue(@RequestBody Departments dept) {
 		String departmentName = dept.getDepartmentName();
-		System.out.println("--- deptName: " + departmentName);
+		logger.info("--- deptName: " + departmentName);
 		
 		List<Employees> employeesList = dept.getEmployeesList();
 		int size = employeesList.size();
 		if(size > 0) {
 			String firstName = employeesList.get(0).getFirstName();
-			System.out.println("----firstName: " + firstName);
+			logger.info("----firstName: " + firstName);
 		}
 		
 		
@@ -165,7 +168,7 @@ public class EmployeesController {
 		asyncDemoServices.testAsyncMethodNoReturnA();
 		
 		String result = JSON.toJSONString(employeesPOJO);
-		System.out.println("-----result:json: " + result);
+		logger.info("-----result:json: " + result);
 		
 		// 结果处理
 		resultObj.setCode(ResultObj.CODE_OK);
@@ -175,17 +178,18 @@ public class EmployeesController {
 		return resultObj;
 	}
 	
-    @Async
-    public void testAsyncMethod(){
-        try {
-            //让程序暂停100秒，相当于执行一个很耗时的任务
-            System.out.println("begin ------ testAsyncMethod");
-            Thread.sleep(10000);
-            System.out.println("end ------ testAsyncMethod");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }	
+//  测试在控制器中写异步方法。  
+//	@Async
+//    public void testAsyncMethod(){
+//        try {
+//            //让程序暂停100秒，相当于执行一个很耗时的任务
+//            logger.info("begin ------ testAsyncMethod");
+//            Thread.sleep(10000);
+//            logger.info("end ------ testAsyncMethod");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }	
 	
 	
 	
@@ -252,7 +256,7 @@ public class EmployeesController {
 	@ResponseBody
 	public List<Employees> getEmpByDeptIdList(@RequestBody Integer[] deptIdList){
 		
-		System.out.println("------deptIdList: " + deptIdList[0]);
+		logger.info("------deptIdList: " + deptIdList[0]);
 //		List<Employees> empList = employeesServices.selectByDeptIdList(deptIdList);
 		return null;
 	}
@@ -271,7 +275,7 @@ public class EmployeesController {
 		ResultObj resultObj = new ResultObj();
 		
 		// 业务逻辑处理
-		System.out.println("------deptIdList: " + deptIdList.get(0));
+		logger.info("------deptIdList: " + deptIdList.get(0));
 		List<Employees> empList = employeesServices.selectByDeptIdList(deptIdList);
 		
 		// 结果处理
@@ -297,7 +301,7 @@ public class EmployeesController {
         ResultObj resultObj = new ResultObj();
         
         // 业务逻辑处理
-//        System.out.println("------参数deptIdList: " + deptIdList.get(0));
+//        logger.info("------参数deptIdList: " + deptIdList.get(0));
         List<Employees> empList = employeesServices.selectByDeptIdList3(deptIdList, 10000);
         
         // 结果处理
@@ -340,7 +344,7 @@ public class EmployeesController {
 		
 		// 业务逻辑处理
 		if( null != employees) {
-			System.out.println("---- empName: " + employees.getFirstName());
+			logger.info("---- empName: " + employees.getFirstName());
 		}
 		employeesServices.insertSelectiveTest(employees);
 		
@@ -364,8 +368,8 @@ public class EmployeesController {
 		ResultObj resultObj = new ResultObj();
 		
 		// 业务逻辑处理
-		if( null != employeesList.get(0)) {
-			System.out.println("---- empName: " + employeesList.get(0).getFirstName());
+		if(employeesList.size() > 0) {
+			logger.info("---- empName: " + employeesList.get(0).getFirstName());
 		}
 		employeesServices.insertSelectiveTest_Batch(employeesList);
 		

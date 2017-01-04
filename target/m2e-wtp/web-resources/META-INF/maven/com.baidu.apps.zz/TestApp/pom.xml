@@ -12,7 +12,7 @@
   <properties>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <!-- 编译打包时跳过test -->
-    	<skipTests>true</skipTests>
+    	<skipTests>false</skipTests>
 		<commons-lang.version>2.6</commons-lang.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<spring.version>4.2.4.RELEASE</spring.version>
@@ -27,13 +27,44 @@
   <!-- 依赖管理 -->
   <dependencies>
   	
-  	<!-- 测试 -->
+  
+  	
+  	<!-- 单元测试相关依赖 -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+        <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+        <scope>test</scope>
+    </dependency>
+     <!-- jsonPath -->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+       <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+            <version>2.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- 注解验证需要的依赖 -->
+	    <dependency>
+	        <groupId>org.hibernate</groupId>
+	        <artifactId>hibernate-validator</artifactId>
+	        <version>5.2.4.Final</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>javax.validation</groupId>
+	        <artifactId>validation-api</artifactId>
+	        <version>1.1.0.Final</version>
+	    </dependency>
     
     <!-- 项目本地编译需要，指定 scope provided -->
     <dependency>
@@ -100,11 +131,7 @@
 		<artifactId>spring-context-support</artifactId>
 		<version>${spring.version}</version>
 	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-test</artifactId>
-		<version>${spring.version}</version>
-	</dependency>
+
  
  
    
@@ -237,19 +264,92 @@
   <build>
     <finalName>TestApp</finalName>
     <plugins> 
-	<!-- compiler插件, 设定JDK版本 --> 
-	<plugin> 
-	<groupId>org.apache.maven.plugins</groupId> 
-	<artifactId>maven-compiler-plugin</artifactId> 
-	<version>3.1</version> 
-	<configuration> 
-	<source>1.7</source> 
-	<target>1.7</target> 
-	<showWarnings>true</showWarnings> 
-	</configuration> 
-	</plugin>
-  </plugins> 
-    
+		 <!-- compiler插件, 设定JDK版本 --> 
+		 <plugin> 
+				<groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-compiler-plugin</artifactId> 
+				<version>3.1</version> 
+				<configuration> 
+				<source>1.7</source> 
+				<target>1.7</target> 
+				<showWarnings>true</showWarnings> 
+                <!-- 对非java文件（.xml, .properties 文件的编译处理） -->
+                <webResources>
+                    <resource>
+                        <filtering>true</filtering>
+                        <directory>src/main/webapp</directory>
+                        <includes>
+                            <include>**/web.xml</include>
+                        </includes>
+                    </resource>
+                    <resource>
+                        <filtering>true</filtering>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                              <include>**/*.properties</include>
+                              <include>*.*</include>
+                        </includes>
+                        <targetPath>/WEB-INF/classes</targetPath>
+                    </resource>
+                    <resource>
+			            <filtering>false</filtering>
+			            <directory>src/main/java</directory>
+			            <includes>
+			                <include>**/*.xml</include>
+			            </includes>
+			            <targetPath>/WEB-INF/classes</targetPath>
+			        </resource>
+                 </webResources>
+                <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+            </configuration>
+		 </plugin>
+		 <!-- 测试覆盖率报告 -->
+	     <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <check />
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <!-- <aggregate>true</aggregate> -->
+                    <instrumentation>
+                        <excludes>
+                            <exclude>com/excelib/domain/model/**/**.class</exclude>
+                        </excludes>
+                        <ignoreTrivial>true</ignoreTrivial>
+                    </instrumentation>
+                </configuration>
+                <executions> 
+                    <execution> 
+                        <goals> 
+                            <goal>clean</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
+         </plugin>
+  </plugins>
+
+     <resources>
+        <resource>
+            <filtering>false</filtering>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </resource>
+        <resource>
+            <filtering>false</filtering>
+            <directory>src/main/resources</directory>
+            <includes>
+                  <include>**/*.properties</include>
+                  <include>*.*</include>
+            </includes>
+        </resource>
+    </resources>
   </build>
   
 </project>

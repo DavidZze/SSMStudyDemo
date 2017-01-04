@@ -34,7 +34,6 @@ public class PersonController {
 	 * 构造器
 	 */
 	public PersonController() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Autowired
@@ -64,7 +63,7 @@ public class PersonController {
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody Person login(@RequestBody Person person) {
 		this.passDomain();
-		System.out.println("---- Server do login ----");
+		logger.info("---- Server do login ----");
 		return person;
 	}
 	
@@ -81,7 +80,7 @@ public class PersonController {
 					     @RequestParam int id,
 					     @RequestParam boolean status) {
 		
-		System.out.println("---- Server do login ----");
+	    logger.info("---- Server do login ----");
 //		this.passDomain();
 		
 		MappingJacksonValue result = null;
@@ -97,7 +96,7 @@ public class PersonController {
             result.setJsonpFunction(jsonpCallback); 
 		}
 		
-		System.out.println("------result: " + result.getValue());
+		logger.info("------result: " + result.getValue());
 		return result;
 	}
 	
@@ -117,13 +116,13 @@ public class PersonController {
     									@PathVariable boolean status) {
     	this.passDomain();
     	Person person = new Person(id, name, status);
-    	System.out.println("---- profile >>> Person is: " + person.toString()) ;
+    	logger.info("---- profile >>> Person is: " + person.toString()) ;
     	return person;
     }
   
     
     private void passDomain() {
-    	System.out.println("------ httpResponse: " + this.response);
+        logger.info("------ httpResponse: " + this.response);
     	this.response.setCharacterEncoding("UTF-8");
     	this.response.setHeader("Content-type", "text/html;charset=UTF-8");
     	this.response.setHeader("Access-Control-Allow-Methods","POST, GET, OPTIONS");

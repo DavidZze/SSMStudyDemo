@@ -17,7 +17,7 @@ public class GoController implements EnvironmentAware{
 
 	private final Log logger = LogFactory.getLog(GoController.class);
 	
-	private Environment environment = null;
+//	private Environment environment = null;
 	
 	// 处理Head类型的请求 匹配："/"
 	@RequestMapping(value={"/"},method= {RequestMethod.HEAD})
@@ -39,7 +39,7 @@ public class GoController implements EnvironmentAware{
 	@Override
 	public void setEnvironment(Environment environment) {
 		// TODO Auto-generated method stub
-		this.environment = environment;
+//		this.environment = environment;
 	}
 	
 }
