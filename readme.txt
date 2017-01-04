@@ -8,4 +8,3 @@
 2. 使用 Spring，SpringMVC, MyBatis；
 3. 使用 oracle 数据库；
 4. 增加单测类。
-Zz
