@@ -6,6 +6,8 @@ package com.excelib.controller;
 import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -37,6 +39,9 @@ public class EmployeesControllerTest extends AbstractContextControllerTests{
     @Resource
     private EmployeesController employeesController;
     
+    
+    
+    
     /**
      * @throws java.lang.Exception
      */
@@ -63,6 +68,7 @@ public class EmployeesControllerTest extends AbstractContextControllerTests{
      */
     @Test
     public void testQueryComplexFunc() throws Exception {
+    	
         String re = MockUtil.mockHttpGet(this.mockMvc, "/employees/queryOrclComplex");
         logger.info("-------------" + re);
     }
@@ -72,7 +78,11 @@ public class EmployeesControllerTest extends AbstractContextControllerTests{
      */
     @Test
     public void testGetRequestParamValue()  throws Exception {
-        String re = MockUtil.mockHttpGet(this.mockMvc, "/employees/paramTest?param1=xxx&&param2=xxx");
+    	
+    	Map<String, Object> sessionMap = new HashMap<String, Object>();
+    	sessionMap.put("param9", "zhouze----");
+    	
+        String re = MockUtil.mockHttpGet(this.mockMvc, "/employees/paramTest?param1=xxx&&param2=xxx", sessionMap);
         logger.info("-------------" + re);
     }
 

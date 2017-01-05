@@ -81,6 +81,7 @@ public class EmployeesController {
 	public void getRequestParamValue(HttpServletRequest request, 
 							   		 HttpServletResponse response) throws IOException {
 		
+		logger.info("-------session: " + request.getSession().getAttribute("param9"));
 		
 		String name = request.getParameter("name");
 		logger.info("-----: " + name);
