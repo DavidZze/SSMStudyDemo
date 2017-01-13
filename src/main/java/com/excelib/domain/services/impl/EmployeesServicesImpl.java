@@ -25,10 +25,21 @@ public class EmployeesServicesImpl implements EmployeesServices{
     private String unitTest2;
     private String unitTest3;
     
+    /**
+     * 缺省的构造器
+     */
 	public EmployeesServicesImpl() {
-		
 	}
 
+	/**
+	 * 方便单测使用的构造器。
+	 * @param employeeMapper
+	 */
+	public EmployeesServicesImpl(EmployeesMapper employeeMapper) {
+	    this.employeeMapper = employeeMapper;
+    }
+	
+	
 	@Override
 	public Employees selectByEmpId(Integer employeeId) {
 		System.out.println("----- do ServiceImpl ----");

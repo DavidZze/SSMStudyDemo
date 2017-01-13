@@ -15,9 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +27,6 @@ import com.excelib.util.MockUtil;
  * 测试 EmployeesController
  * @author zhouze 
  */
-@RunWith(value = SpringJUnit4ClassRunner.class)
 public class EmployeesControllerTest extends AbstractContextControllerTests{
 
     private final Log logger = LogFactory.getLog(EmployeesControllerTest.class.getName());
